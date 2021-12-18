@@ -87,7 +87,7 @@ class _ManGoInAppWebViewState extends State<ManGoInAppWebView> {
                       InAppWebView(
                         key: webViewKey,
                         initialUrlRequest:
-                        URLRequest(url: Uri.parse("http://192.168.100.175:8081/CmLogin/Login/Login/")),
+                        URLRequest(url: Uri.parse("websiteURL")),
                         initialOptions: options,
                         pullToRefreshController: pullToRefreshController,
                         onWebViewCreated: (controller) {
