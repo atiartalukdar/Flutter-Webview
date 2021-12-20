@@ -1,12 +1,8 @@
 import 'dart:io' show Platform;
-import 'package:flutter/material.dart';
-import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:flutter/services.dart';
-import 'package:weview/presenter/ManGoInAppWebView.dart';
-import 'package:weview/presenter/components/TestInAppWebView.dart';
+import 'utils/export.util.dart';
 
-void main() async{
-  //Transparent status bar
+
+void main() async {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.orange,
   ));
@@ -15,17 +11,18 @@ void main() async{
   if (Platform.isAndroid) {
     await AndroidInAppWebViewController.setWebContentsDebuggingEnabled(true);
   }
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    //final double statusBarHeight = MediaQuery.of(context).padding.top;
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Man.Go',
-      home: ManGoInAppWebView()
+      home: ManGoInAppWebView(),
     );
   }
 }

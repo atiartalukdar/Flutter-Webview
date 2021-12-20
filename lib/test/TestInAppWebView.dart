@@ -1,31 +1,30 @@
-import 'dart:async';
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 class TestInAppWebView extends StatefulWidget {
+  const TestInAppWebView({Key? key}) : super(key: key);
+
   @override
-  _TestInAppWebViewState createState() => new _TestInAppWebViewState();
+  _TestInAppWebViewState createState() => _TestInAppWebViewState();
 }
 
 class _TestInAppWebViewState extends State<TestInAppWebView> {
-
   InAppWebViewGroupOptions options = InAppWebViewGroupOptions(
     android: AndroidInAppWebViewOptions(
       useHybridComposition: true,
-    ),);
+    ),
+  );
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-          appBar: AppBar(title: Text("JavaScript Handlers")),
+          appBar: AppBar(title: const Text("JavaScript Handlers")),
           body: SafeArea(
               child: Column(children: <Widget>[
-                Expanded(
-                  child: InAppWebView(
-                    initialData: InAppWebViewInitialData(
-                        data: """
+            Expanded(
+              child: InAppWebView(
+                initialData: InAppWebViewInitialData(data: """
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,29 +48,30 @@ class _TestInAppWebViewState extends State<TestInAppWebView> {
         </script>
     </body>
 </html>
-                      """
-                    ),
-                    initialOptions: options,
-                    onWebViewCreated: (controller) {
-                      controller.addJavaScriptHandler(handlerName: 'handlerFoo', callback: (args) {
+                      """),
+                initialOptions: options,
+                onWebViewCreated: (controller) {
+                  controller.addJavaScriptHandler(
+                      handlerName: 'handlerFoo',
+                      callback: (args) {
                         // return data to the JavaScript side!
-                        return {
-                          'Mac': 'Atiar mac', 'IP': 'Atiar IP'
-                        };
+                        return {'Mac': 'Atiar mac', 'IP': 'Atiar IP'};
                       });
 
-                      controller.addJavaScriptHandler(handlerName: 'handlerFooWithArgs', callback: (args) {
+                  controller.addJavaScriptHandler(
+                      handlerName: 'handlerFooWithArgs',
+                      callback: (args) {
                         print(args);
                         // it will print: [1, true, [bar, 5], {foo: baz}, {bar: bar_value, baz: baz_value}]
                       });
-                    },
-                    onConsoleMessage: (controller, consoleMessage) {
-                      print(consoleMessage);
-                      // it will print: {message: {"bar":"bar_value","baz":"baz_value"}, messageLevel: 1}
-                    },
-                  ),
-                ),
-              ]))),
+                },
+                onConsoleMessage: (controller, consoleMessage) {
+                  print(consoleMessage);
+                  // it will print: {message: {"bar":"bar_value","baz":"baz_value"}, messageLevel: 1}
+                },
+              ),
+            ),
+          ]))),
     );
   }
 }
