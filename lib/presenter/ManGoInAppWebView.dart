@@ -87,7 +87,7 @@ class _ManGoInAppWebViewState extends State<ManGoInAppWebView> {
                       InAppWebView(
                         key: webViewKey,
                         initialUrlRequest:
-                        URLRequest(url: Uri.parse("websiteURL")),
+                        URLRequest(url: Uri.parse("http://192.168.100.175:8081/CmLogin/Login/Login/")),
                         initialOptions: options,
                         pullToRefreshController: pullToRefreshController,
                         onWebViewCreated: (controller) {
@@ -101,8 +101,6 @@ class _ManGoInAppWebViewState extends State<ManGoInAppWebView> {
                                 'MacAddress': '1597283465475_mKVFI3ShJd', 'IP': '192.168.7.164'
                               };
                             }
-
-
                           });
 
                           controller.addJavaScriptHandler(handlerName: 'AjaxHandler', callback: (args) {
@@ -115,6 +113,7 @@ class _ManGoInAppWebViewState extends State<ManGoInAppWebView> {
 
                               case "[isConnectErrorMessage]":
                                 return { 'getData': 'false' };
+
                               case "[getIniUseVpn]":
                                 return { 'getData': '0' };
                             }
@@ -194,6 +193,7 @@ class _ManGoInAppWebViewState extends State<ManGoInAppWebView> {
                 ),
               ]))),
     );
+
   }
 
 
