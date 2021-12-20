@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter/services.dart';
 import 'package:weview/presenter/ManGoInAppWebView.dart';
-import 'package:weview/presenter/ManGoWebView.dart';
 import 'package:weview/presenter/components/TestInAppWebView.dart';
 
 void main() async{
