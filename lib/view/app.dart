@@ -19,13 +19,13 @@ class _ManGoInAppWebViewState extends State<ManGoInAppWebView> {
           child: Column(
             children: [
               //* info:: search bar
-              SearchBar(ctrl: _ctrl),
+//               SearchBar(ctrl: _ctrl),
 
               //* info:: webview
               const Webview(),
 
               //* info:: back, next, reload btn
-              BackNextReloadBtn(ctrl: _ctrl),
+//               BackNextReloadBtn(ctrl: _ctrl),
             ],
           ),
         ),
