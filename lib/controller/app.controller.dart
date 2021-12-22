@@ -27,6 +27,9 @@ class AppController {
         // log('arags: ' + args.toString());
         //* args = [ip, location, connection, mac]
         String _args = args[3].toString();
+
+        //! important:: unable to call async function in switch-case. so I have used if else
+
         if (_args == 'ip') {
           String ip = await getIP();
           log('IP Address: ' + ip);
