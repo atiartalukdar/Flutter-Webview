@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:location/location.dart';
 import 'package:weview/utils/export.util.dart';
 
@@ -11,6 +12,7 @@ class AppController {
   late bool isConnected;
   late String platformVersion;
   late LocationData locationData;
+  Map deviceInfo = {};
 
   InAppWebViewGroupOptions options = InAppWebViewGroupOptions(
     android: AndroidInAppWebViewOptions(
@@ -23,7 +25,8 @@ class AppController {
       handlerName: 'AjaxHandler',
       callback: (args) async {
         // log('arags: ' + args.toString());
-        String _args = args[0].toString();
+        //* args = [ip, location, connection, mac]
+        String _args = args[3].toString();
         if (_args == 'ip') {
           String ip = await getIP();
           log('IP Address: ' + ip);
@@ -40,6 +43,10 @@ class AppController {
           log('Connection: ' + isConnected.toString());
           return {'getData': isConnected.toString()};
         } else if (_args == 'mac') {
+          Map deviceInfo = await getDeviceInfo();
+          log(deviceInfo.toString());
+          //todo:: Please fetch your required info
+
           log('MAC Address: ' 'Mac Address: 00:0a:95:9d:68:16');
           return {'getData': 'Mac Address: 00:0a:95:9d:68:16'};
         }
@@ -98,5 +105,12 @@ class AppController {
 
     return {'latitude': locationData.latitude, 'longitude': locationData.longitude};
     // locationData.toString();
+  }
+
+  Future<Map> getDeviceInfo() async {
+    final deviceInfoPlugin = DeviceInfoPlugin();
+    final deviceInfo = await deviceInfoPlugin.deviceInfo;
+    final map = deviceInfo.toMap();
+    return map;
   }
 }

@@ -21,6 +21,7 @@ class _WebviewState extends State<Webview> {
         _ctrl.isConnectedToInternet(result);
       },
     );
+    // _ctrl.getDeviceInfo();
   }
 
   @override
