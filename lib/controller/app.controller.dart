@@ -22,16 +22,16 @@ class AppController {
     String ip = await getIP();
     await getLocation();
     controller.addJavaScriptHandler(
-      handlerName: 'AjaxHandler',
+      handlerName: 'AndroidFunctions',
       callback: (args) {
         switch (args[0].toString()) {
-          case "ip":
-            log('IP Address: ' + ip);
-            return {'getData': ip};
+          case "CommonData":
+            log("'MacAddress': '1597283465475_mKVFI3ShJd', 'IP': '192.168.7.164'");
+            return {'MacAddress': '1597283465475_mKVFI3ShJd', 'IP': '192.168.7.164'};
 
           case "mac":
             log('MAC Address: ' 'Mac Address: 00:0a:95:9d:68:16');
-            return {'getData': 'Mac Address: 00:0a:95:9d:68:16'};
+            return {'MacAddress': '1597283465475_mKVFI3ShJd', 'IP': '192.168.7.164'};
 
           case "location":
             // log('Location: ' 'Location: ${getLocation()}');
