@@ -6,13 +6,6 @@ class ManGoInAppWebView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Title(
-          color: Colors.black,
-          child: const Text('App Name'),
-        ),
-      ),
       body: SafeArea(
         child: Webview(),
       ),

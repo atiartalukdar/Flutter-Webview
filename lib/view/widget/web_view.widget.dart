@@ -32,7 +32,8 @@ class _WebviewState extends State<Webview> {
       children: [
         //* info:: webview
         InAppWebView(
-          initialData: InAppWebViewInitialData(data: initailData),
+          //initialData: InAppWebViewInitialData(data: initailData),
+          initialUrlRequest: URLRequest(url: Uri.parse(ksIntialUrl)),
           initialOptions: _ctrl.options,
           onWebViewCreated: (InAppWebViewController controller) async {
             await _ctrl.getInfo(controller);
