@@ -19,27 +19,29 @@ class AppController {
   );
 
   Future<void> getInfo(InAppWebViewController controller) async {
-    String ip = await getIP();
-    await getLocation();
     controller.addJavaScriptHandler(
       handlerName: 'AjaxHandler',
-      callback: (args) {
-        switch (args[0].toString()) {
-          case "ip":
-            log('IP Address: ' + ip);
-            return {'getData': ip};
-
-          case "mac":
-            log('MAC Address: ' 'Mac Address: 00:0a:95:9d:68:16');
-            return {'getData': 'Mac Address: 00:0a:95:9d:68:16'};
-
-          case "location":
-            // log('Location: ' 'Location: ${getLocation()}');
+      callback: (args) async {
+        // log('arags: ' + args.toString());
+        String _args = args[0].toString();
+        if (_args == 'ip') {
+          String ip = await getIP();
+          log('IP Address: ' + ip);
+          return {'getData': ip};
+        } else if (_args == 'location') {
+          try {
+            var res = await getLocation();
+            log('location: ' + res.toString());
             return {'getData': 'Location: ${getLocation()}'};
-
-          case "connection":
-            log('Connection: ' + isConnected.toString());
-            return {'getData': isConnected.toString()};
+          } catch (e) {
+            log(e.toString());
+          }
+        } else if (_args == 'connection') {
+          log('Connection: ' + isConnected.toString());
+          return {'getData': isConnected.toString()};
+        } else if (_args == 'mac') {
+          log('MAC Address: ' 'Mac Address: 00:0a:95:9d:68:16');
+          return {'getData': 'Mac Address: 00:0a:95:9d:68:16'};
         }
       },
     );
@@ -56,11 +58,12 @@ class AppController {
   }
 
   Future<void> isConnectedToInternet(result) async {
-    if (result == ConnectivityResult.mobile || result == ConnectivityResult.wifi) {
+    if (result.toString() == 'ConnectivityResult.mobile' || result.toString() == 'ConnectivityResult.wifi') {
       isConnected = true;
     } else {
       isConnected = false;
     }
+    // log(isConnected.toString());
   }
 
   Future<dynamic> getLocation() async {
@@ -73,6 +76,7 @@ class AppController {
     if (!_serviceEnabled) {
       _serviceEnabled = await location.requestService();
       if (!_serviceEnabled) {
+        log('location service not enabled');
         return;
       }
     }
@@ -81,12 +85,18 @@ class AppController {
     if (_permissionGranted == PermissionStatus.denied) {
       _permissionGranted = await location.requestPermission();
       if (_permissionGranted != PermissionStatus.granted) {
+        log('location permission denied');
         return;
       }
     }
 
-    locationData = await location.getLocation();
-    log('location: $locationData');
-    // return locationData.toString();
+    try {
+      locationData = await location.getLocation();
+    } catch (e) {
+      log(e.toString());
+    }
+
+    return {'latitude': locationData.latitude, 'longitude': locationData.longitude};
+    // locationData.toString();
   }
 }

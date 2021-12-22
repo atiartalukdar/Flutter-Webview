@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:weview/utils/export.util.dart';
 
 class Webview extends StatefulWidget {
@@ -15,6 +17,7 @@ class _WebviewState extends State<Webview> {
     super.initState();
     _ctrl.subscription = Connectivity().onConnectivityChanged.listen(
       (ConnectivityResult result) {
+        // log(result.toString());
         _ctrl.isConnectedToInternet(result);
       },
     );
@@ -32,7 +35,7 @@ class _WebviewState extends State<Webview> {
       children: [
         //* info:: webview
         InAppWebView(
-          //initialData: InAppWebViewInitialData(data: initailData),
+          initialData: InAppWebViewInitialData(data: initailData),
           initialUrlRequest: URLRequest(url: Uri.parse(ksIntialUrl)),
           initialOptions: _ctrl.options,
           onWebViewCreated: (InAppWebViewController controller) async {
